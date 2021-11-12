@@ -11,14 +11,11 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale != 0)
+        if (_playerMovement != null)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (_playerMovement != null)
-                {
-                    _playerMovement.ApplyImpulse();
-                }
+                _playerMovement.ApplyImpulse();
             }
 
             if (Input.touchCount > 0)
@@ -29,10 +26,7 @@ public class PlayerInput : MonoBehaviour
 
                     if (touch.phase == TouchPhase.Began)
                     {
-                        if (_playerMovement != null)
-                        {
-                            _playerMovement.ApplyImpulse();
-                        }
+                        _playerMovement.ApplyImpulse();
                     }
                 }
             }

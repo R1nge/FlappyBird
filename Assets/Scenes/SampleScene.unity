@@ -1090,9 +1090,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1713874857}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: Play
+      - m_Target: {fileID: 1713874858}
+        m_TargetAssemblyTypeName: GameLoop, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1747,8 +1747,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1713874858}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Restart
+        m_TargetAssemblyTypeName: GameLoop, Assembly-CSharp
+        m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1805,10 +1805,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1713874853}
+  - component: {fileID: 1713874858}
   - component: {fileID: 1713874855}
   - component: {fileID: 1713874856}
   - component: {fileID: 1713874857}
-  - component: {fileID: 1713874858}
   - component: {fileID: 1713874854}
   m_Layer: 0
   m_Name: GameManager
@@ -1857,8 +1857,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c83c1b1beffa49846ab91ac101a13c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pools:
-  - tag: Obstacle
+  pool:
+    tag: Obstacle
     prefab: {fileID: 3065169415541053047, guid: 0b2c9e36389a30548ad4f08a0e81b15c, type: 3}
     size: 2
 --- !u!114 &1713874856
@@ -1899,7 +1899,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1713874852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9db9296c4eb5fbd4b8cc94c3bfad6402, type: 3}
+  m_Script: {fileID: 11500000, guid: 121730b4236417947b6f4f40535377b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1809492672

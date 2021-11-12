@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// I used "Object Pooling" because i can,
-// but it also can be done using Instantiate() and Destroy().
+// I used "Object Pooling" to reduce RAM usage
 
 public class ObstaclePool : MonoBehaviour
 {
+    #region Pool
+
     [Serializable]
     public class Pool
     {
@@ -15,31 +16,43 @@ public class ObstaclePool : MonoBehaviour
         public int size;
     }
 
-    [SerializeField] private List<Pool> _pools;
+    #endregion
+
+    [SerializeField] private Pool pool;
     private Dictionary<string, Queue<GameObject>> _obstacles;
 
-    //Singleton
+    #region Singleton
+
     public static ObstaclePool Instance;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
+    #endregion
+
+    private void Start()
+    {
         _obstacles = new Dictionary<string, Queue<GameObject>>();
 
-        foreach (var pool in _pools)
+        Queue<GameObject> objectPool = new Queue<GameObject>();
+
+        for (int i = 0; i < pool.size; i++)
         {
-            Queue<GameObject> objectPool = new Queue<GameObject>();
-
-            for (int i = 0; i < pool.size; i++)
-            {
-                var tmp = Instantiate(pool.prefab);
-                tmp.SetActive(false);
-                objectPool.Enqueue(tmp);
-            }
-
-            _obstacles.Add(pool.tag, objectPool);
+            var tmp = Instantiate(pool.prefab);
+            tmp.SetActive(false);
+            objectPool.Enqueue(tmp);
         }
+
+        _obstacles.Add(pool.tag, objectPool);
     }
 
 
