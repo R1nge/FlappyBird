@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// I used "Object Pooling" to reduce RAM usage
-
 public class ObstaclePool : MonoBehaviour
 {
     #region Pool
