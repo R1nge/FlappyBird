@@ -1,34 +1,30 @@
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+namespace Player
 {
-    private PlayerMovement _playerMovement;
-
-    private void Awake()
+    public class PlayerInput : MonoBehaviour
     {
-        _playerMovement = FindObjectOfType<PlayerMovement>();
-    }
+        private PlayerMovement _playerMovement;
 
-    void Update()
-    {
-        if (_playerMovement != null)
+        private void Awake()
+        {
+            _playerMovement = FindObjectOfType<PlayerMovement>();
+        }
+
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 _playerMovement.ApplyImpulse();
             }
 
-            if (Input.touchCount > 0)
-            {
-                for (int i = 0; i < Input.touchCount; i++)
-                {
-                    Touch touch = Input.GetTouch(i);
+            if (Input.touchCount <= 0) return;
 
-                    if (touch.phase == TouchPhase.Began)
-                    {
-                        _playerMovement.ApplyImpulse();
-                    }
-                }
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                _playerMovement.ApplyImpulse();
             }
         }
     }

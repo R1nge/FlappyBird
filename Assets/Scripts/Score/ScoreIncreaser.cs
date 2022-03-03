@@ -1,23 +1,15 @@
+using Core;
 using UnityEngine;
 
-public class ScoreIncreaser : MonoBehaviour
+namespace Score
 {
-    private HighScoreSaver _highScoreSaver;
-    private UIHandler _uiHandler;
-    private SoundHandler _soundHandler;
-
-    private void Awake()
+    public class ScoreIncreaser : MonoBehaviour
     {
-        _highScoreSaver = FindObjectOfType<HighScoreSaver>();
-        _uiHandler = FindObjectOfType<UIHandler>();
-        _soundHandler = FindObjectOfType<SoundHandler>();
-    }
+        [SerializeField] private int amount;
+        private HighScoreSaver _highScoreSaver;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        ObstaclePool.Instance.SpawnFromPool("Obstacle", new Vector2(transform.position.x + 5, Random.Range(-2.27f, 2.48f)), Quaternion.identity);
-        _highScoreSaver.currentScore += 1;
-        _uiHandler.UpdateScore(_highScoreSaver.currentScore);
-        _soundHandler.PlayScoreSound();
+        private void Awake() => _highScoreSaver = FindObjectOfType<HighScoreSaver>();
+
+        private void OnTriggerEnter2D(Collider2D other) => _highScoreSaver.IncreaseScore(amount);
     }
 }

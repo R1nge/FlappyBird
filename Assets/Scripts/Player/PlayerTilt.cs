@@ -1,33 +1,45 @@
+using Core;
 using UnityEngine;
 
-public class PlayerTilt : MonoBehaviour
+namespace Player
 {
-    private Rigidbody2D _rigidbody;
-
-    private void Awake()
+    public class PlayerTilt : MonoBehaviour
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
+        private Rigidbody2D _rigidbody;
+        private GameManager _gameManager;
 
-    private void FixedUpdate()
-    {
-        Tilt();
-    }
-
-    private void Tilt()
-    {
-        if (_rigidbody.velocity.y < 0)
+        private void Awake()
         {
-            if (transform.rotation.z <= 30)
-            {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, -30), Time.deltaTime * 100);
-            }
+            enabled = false;
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _gameManager = FindObjectOfType<GameManager>();
+            _gameManager.OnGameStartEvent += OnGameStart;
         }
-        else
+
+        private void OnGameStart() => enabled = true;
+
+        private void FixedUpdate()
         {
-            if (transform.rotation.z >= -30)
+            Tilt();
+        }
+
+        private void Tilt()
+        {
+            if (_rigidbody.velocity.y < 0)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 30), Time.deltaTime * 100);
+                if (transform.rotation.z <= 30)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, -30),
+                        Time.deltaTime * 100);
+                }
+            }
+            else
+            {
+                if (transform.rotation.z >= -30)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, 30),
+                        Time.deltaTime * 100);
+                }
             }
         }
     }

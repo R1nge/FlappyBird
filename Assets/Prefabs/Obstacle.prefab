@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f53a2a2a23dd9b4ba4a49d36f7d5cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 1
 --- !u!1 &6241726781195943595
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ GameObject:
   - component: {fileID: 5332266742872666205}
   - component: {fileID: 5636133207768232577}
   - component: {fileID: 3577568316054962716}
-  - component: {fileID: 5506047825718263973}
+  - component: {fileID: 7102001746132683118}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -234,7 +235,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6657814, y: 3.24972}
   m_EdgeRadius: 0
---- !u!114 &5506047825718263973
+--- !u!114 &7102001746132683118
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f53a2a2a23dd9b4ba4a49d36f7d5cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 0
 --- !u!1 &7542268289660840065
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +260,7 @@ GameObject:
   - component: {fileID: 6910690185896344471}
   - component: {fileID: 7480811557864741450}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: IncreaseScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +293,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009661257, y: 3.6652718}
+  m_Offset: {x: -0.0046088547, y: 3.6652718}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -302,7 +304,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.69083774, y: 1.2362423}
+  m_Size: {x: 0.2563108, y: 1.2362423}
   m_EdgeRadius: 0
 --- !u!114 &7480811557864741450
 MonoBehaviour:
@@ -316,3 +318,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b5ddb717fbd3949bf0fe7371801ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amount: 1
