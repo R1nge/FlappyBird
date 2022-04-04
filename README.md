@@ -1,7 +1,3 @@
 # FlappyBird
 
-![Main Menu](https://drive.google.com/uc?export=download&id=1y25UF2UEc1JbtHxl4GZchfkgPmuVPXub)
-
-![In Game](https://drive.google.com/uc?export=download&id=1YZ0nKPQ-hbRAdQMF9F-qpG7rYMDXcosl)
-
-![GameOver](https://drive.google.com/uc?export=download&id=1d9bzYxWghfYs3ZhcrijQg8WLHGnyBSU0)
+[![Video](https://res.cloudinary.com/marcomontalbano/image/upload/v1649057786/video_to_markdown/images/youtube--Yp-ULzC49u8-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/Yp-ULzC49u8 "")
