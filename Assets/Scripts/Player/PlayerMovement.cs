@@ -7,16 +7,14 @@ namespace Player
     {
         private Rigidbody2D _rigidbody;
         private readonly Vector2 _force = new Vector2(0, 5);
-        private GameManager _gameManager;
 
         private void Awake()
         {
+            GameManager.Instance.OnGameStartEvent += OnStartGame;
+            GameManager.Instance.OnGameOverEvent += OnGameOver;
             _rigidbody = GetComponent<Rigidbody2D>();
-            _gameManager = FindObjectOfType<GameManager>();
             enabled = false;
             _rigidbody.isKinematic = true;
-            _gameManager.OnGameStartEvent += OnStartGame;
-            _gameManager.OnGameOverEvent += OnGameOver;
         }
 
         private void OnStartGame()
@@ -32,11 +30,5 @@ namespace Player
         }
 
         public void ApplyImpulse() => _rigidbody.AddForce(_force, ForceMode2D.Impulse);
-
-        private void OnDestroy()
-        {
-            _gameManager.OnGameStartEvent -= OnStartGame;
-            _gameManager.OnGameOverEvent -= OnGameOver;
-        }
     }
 }

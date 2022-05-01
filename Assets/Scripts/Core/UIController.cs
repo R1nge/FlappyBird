@@ -4,24 +4,22 @@ using UnityEngine.UI;
 
 namespace Core
 {
-    public class UIHandler : MonoBehaviour
+    public class UIController : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI score, highScore;
         [SerializeField] private Button playButton, retryButton;
         [SerializeField] private RawImage gameOverImage;
-        private GameManager _gameManager;
-        private HighScoreSaver _highScoreSaver;
+        private ScoreController _scoreController;
 
         private void Awake()
         {
-            _gameManager = FindObjectOfType<GameManager>();
-            _gameManager.OnGameStartEvent += StartGame;
-            _gameManager.OnGameOverEvent += GameOver;
+            GameManager.Instance.OnGameStartEvent += StartGame;
+            GameManager.Instance.OnGameOverEvent += GameOver;
 
             gameOverImage.enabled = false;
 
-            _highScoreSaver = FindObjectOfType<HighScoreSaver>();
-            _highScoreSaver.OnScoreUpdated += UpdateScore;
+            _scoreController = FindObjectOfType<ScoreController>();
+            _scoreController.OnScoreUpdated += UpdateScore;
 
             UpdateScore(0);
         }
@@ -38,7 +36,6 @@ namespace Core
         {
             highScore.gameObject.SetActive(true);
             retryButton.gameObject.SetActive(true);
-
             gameOverImage.enabled = true;
         }
 
@@ -46,12 +43,6 @@ namespace Core
         {
             score.text = currentScore.ToString();
             highScore.text = "HighScore: " + PlayerPrefs.GetInt("HighScore");
-        }
-
-        private void OnDestroy()
-        {
-            _gameManager.OnGameStartEvent -= StartGame;
-            _gameManager.OnGameOverEvent -= GameOver;
         }
     }
 }

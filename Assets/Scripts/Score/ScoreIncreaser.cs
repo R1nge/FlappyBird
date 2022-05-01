@@ -5,11 +5,11 @@ namespace Score
 {
     public class ScoreIncreaser : MonoBehaviour
     {
-        [SerializeField] private int amount;
-        private HighScoreSaver _highScoreSaver;
+        [SerializeField]private int amount;
+        private ScoreController _scoreController;
 
-        private void Awake() => _highScoreSaver = FindObjectOfType<HighScoreSaver>();
+        private void Awake() => _scoreController = FindObjectOfType<ScoreController>();
 
-        private void OnTriggerEnter2D(Collider2D other) => _highScoreSaver.IncreaseScore(amount);
+        private void OnTriggerEnter2D(Collider2D other) => _scoreController.IncreaseScore(amount);
     }
 }

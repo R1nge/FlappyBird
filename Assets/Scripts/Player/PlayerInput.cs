@@ -6,10 +6,7 @@ namespace Player
     {
         private PlayerMovement _playerMovement;
 
-        private void Awake()
-        {
-            _playerMovement = FindObjectOfType<PlayerMovement>();
-        }
+        private void Awake() => _playerMovement = FindObjectOfType<PlayerMovement>();
 
         private void Update()
         {
