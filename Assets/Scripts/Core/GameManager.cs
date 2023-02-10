@@ -15,7 +15,6 @@ namespace Core
  
                 return _instance;
             }
-            private set => _instance = value;
         }
         private static GameManager _instance;
         public event Action OnGameStartEvent;

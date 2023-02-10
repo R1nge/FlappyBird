@@ -6,7 +6,7 @@ namespace Player
     public class PlayerMovement : MonoBehaviour
     {
         private Rigidbody2D _rigidbody;
-        private readonly Vector2 _force = new Vector2(0, 5);
+        private readonly Vector2 _force = new(0, 5);
 
         private void Awake()
         {

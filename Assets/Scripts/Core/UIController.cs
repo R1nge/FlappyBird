@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,5 +45,7 @@ namespace Core
             score.text = currentScore.ToString();
             highScore.text = "HighScore: " + PlayerPrefs.GetInt("HighScore");
         }
+
+        private void OnDestroy() => _scoreController.OnScoreUpdated -= UpdateScore;
     }
 }

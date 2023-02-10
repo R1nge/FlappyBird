@@ -24,22 +24,22 @@ namespace Player
             {
                 if (transform.rotation.z <= 30)
                 {
-                    transform.rotation = 
+                    transform.rotation =
                         Quaternion.RotateTowards(
-                            transform.rotation, 
+                            transform.rotation,
                             Quaternion.Euler(0, 0, -30),
-                        Time.deltaTime * 100);
+                            Time.deltaTime * 100);
                 }
             }
             else
             {
                 if (transform.rotation.z >= -30)
                 {
-                    transform.rotation = 
+                    transform.rotation =
                         Quaternion.RotateTowards(
-                            transform.rotation, 
+                            transform.rotation,
                             Quaternion.Euler(0, 0, 30),
-                        Time.deltaTime * 100);
+                            Time.deltaTime * 100);
                 }
             }
         }
