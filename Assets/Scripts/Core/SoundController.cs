@@ -11,11 +11,13 @@ namespace Core
         {
             GameManager.Instance.OnGameOverEvent += PlayGameOverSound;
             _scoreController = FindObjectOfType<ScoreController>();
-            _scoreController.OnScoreUpdated += delegate { PlayScoreSound(); };
+            _scoreController.OnScoreChanged += PlayScoreSound;
         }
 
         private void PlayScoreSound() => scoreSound.Play(0);
 
         private void PlayGameOverSound() => gameOverSound.Play(0);
+
+        private void OnDestroy() => _scoreController.OnScoreChanged -= PlayScoreSound;
     }
 }

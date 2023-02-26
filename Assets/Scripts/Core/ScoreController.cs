@@ -6,14 +6,17 @@ namespace Core
     public class ScoreController : MonoBehaviour
     {
         private int _currentScore;
-        public event Action<int> OnScoreUpdated;
 
-        private void Awake() => OnScoreUpdated += SaveHighScore;
+        public event Action OnScoreChanged;
+        public event Action<int> OnScoreChangedInt;
+
+        private void Awake() => OnScoreChangedInt += SaveHighScore;
 
         public void IncreaseScore(int amount)
         {
             _currentScore += amount;
-            OnScoreUpdated?.Invoke(_currentScore);
+            OnScoreChangedInt?.Invoke(_currentScore);
+            OnScoreChanged?.Invoke();
         }
 
         private void SaveHighScore(int newScore)

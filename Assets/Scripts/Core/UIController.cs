@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +19,7 @@ namespace Core
             gameOverImage.enabled = false;
 
             _scoreController = FindObjectOfType<ScoreController>();
-            _scoreController.OnScoreUpdated += UpdateScore;
+            _scoreController.OnScoreChangedInt += UpdateScore;
 
             UpdateScore(0);
         }
@@ -43,9 +42,9 @@ namespace Core
         private void UpdateScore(int currentScore)
         {
             score.text = currentScore.ToString();
-            highScore.text = "HighScore: " + PlayerPrefs.GetInt("HighScore");
+            highScore.text = $"HighScore: {PlayerPrefs.GetInt("HighScore")}";
         }
 
-        private void OnDestroy() => _scoreController.OnScoreUpdated -= UpdateScore;
+        private void OnDestroy() => _scoreController.OnScoreChangedInt -= UpdateScore;
     }
 }
