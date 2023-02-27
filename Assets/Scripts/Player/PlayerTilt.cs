@@ -22,25 +22,35 @@ namespace Player
         {
             if (_rigidbody.velocity.y < 0)
             {
-                if (transform.rotation.z <= 30)
-                {
-                    transform.rotation =
-                        Quaternion.RotateTowards(
-                            transform.rotation,
-                            Quaternion.Euler(0, 0, -30),
-                            Time.deltaTime * 100);
-                }
+                TiltDown();
             }
             else
             {
-                if (transform.rotation.z >= -30)
-                {
-                    transform.rotation =
-                        Quaternion.RotateTowards(
-                            transform.rotation,
-                            Quaternion.Euler(0, 0, 30),
-                            Time.deltaTime * 100);
-                }
+                TiltUp();
+            }
+        }
+
+        private void TiltUp()
+        {
+            if (transform.rotation.z <= 30)
+            {
+                transform.rotation =
+                    Quaternion.RotateTowards(
+                        transform.rotation,
+                        Quaternion.Euler(0, 0, -30),
+                        Time.deltaTime * 100);
+            }
+        }
+
+        private void TiltDown()
+        {
+            if (transform.rotation.z >= -30)
+            {
+                transform.rotation =
+                    Quaternion.RotateTowards(
+                        transform.rotation,
+                        Quaternion.Euler(0, 0, 30),
+                        Time.deltaTime * 100);
             }
         }
     }

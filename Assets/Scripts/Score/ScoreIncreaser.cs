@@ -5,7 +5,7 @@ namespace Score
 {
     public class ScoreIncreaser : MonoBehaviour
     {
-        [SerializeField]private int amount;
+        [SerializeField] private int amount;
         private ScoreController _scoreController;
 
         private void Awake() => _scoreController = FindObjectOfType<ScoreController>();
