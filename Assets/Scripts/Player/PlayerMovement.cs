@@ -1,34 +1,47 @@
 using Core;
+using Interfaces;
 using UnityEngine;
+using VContainer;
 
 namespace Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, IMovable
     {
+        [field:SerializeField] public float Speed { get; set; }
+        public Vector3 Direction { get; set; } = new(0, 5);
         private Rigidbody2D _rigidbody;
-        private readonly Vector2 _force = new(0, 5);
+        private GameManager _gameManager;
+
+        [Inject]
+        private void Construct(GameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
 
         private void Awake()
         {
-            GameManager.Instance.OnGameStartEvent += OnStartGame;
-            GameManager.Instance.OnGameOverEvent += OnGameOver;
             _rigidbody = GetComponent<Rigidbody2D>();
-            enabled = false;
             _rigidbody.isKinematic = true;
+            _gameManager.OnGameStartEvent += OnGameStarted;
+            _gameManager.OnGameOverEvent += OnGameOver;
         }
 
-        private void OnStartGame()
+        private void OnGameStarted()
         {
-            enabled = true;
             _rigidbody.isKinematic = false;
         }
 
+        public void Move() => _rigidbody.AddForce(Direction * Speed, ForceMode2D.Impulse);
+
         private void OnGameOver()
         {
-            enabled = false;
             _rigidbody.isKinematic = true;
         }
 
-        public void ApplyImpulse() => _rigidbody.AddForce(_force, ForceMode2D.Impulse);
+        private void OnDestroy()
+        {
+            _gameManager.OnGameStartEvent -= OnGameStarted;
+            _gameManager.OnGameOverEvent -= OnGameOver;
+        }
     }
 }

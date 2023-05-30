@@ -1,6 +1,8 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Core
 {
@@ -9,19 +11,24 @@ namespace Core
         [SerializeField] private TextMeshProUGUI score, highScore;
         [SerializeField] private Button playButton, retryButton;
         [SerializeField] private RawImage gameOverImage;
+        private GameManager _gameManager;
         private ScoreController _scoreController;
+        
+        [Inject]
+        private void Construct(GameManager gameManager,ScoreController scoreController)
+        {
+            _gameManager = gameManager;
+            _scoreController = scoreController;
+        }
 
         private void Awake()
         {
-            GameManager.Instance.OnGameStartEvent += StartGame;
-            GameManager.Instance.OnGameOverEvent += GameOver;
-
-            gameOverImage.enabled = false;
-
-            _scoreController = FindObjectOfType<ScoreController>();
-            _scoreController.OnScoreChangedInt += UpdateScore;
-
-            UpdateScore(0);
+            playButton.onClick.AddListener(_gameManager.StartGame);
+            retryButton.onClick.AddListener(_gameManager.RestartGame);
+            _gameManager.OnGameStartEvent += StartGame;
+            _gameManager.OnGameOverEvent += GameOver;
+            _scoreController.OnScoreChangedEvent += UpdateScore;
+            ResetScore();
         }
 
         private void StartGame()
@@ -36,7 +43,7 @@ namespace Core
         {
             highScore.gameObject.SetActive(true);
             retryButton.gameObject.SetActive(true);
-            gameOverImage.enabled = true;
+            gameOverImage.gameObject.SetActive(true);
         }
 
         private void UpdateScore(int currentScore)
@@ -45,6 +52,17 @@ namespace Core
             highScore.text = $"HighScore: {PlayerPrefs.GetInt("HighScore")}";
         }
 
-        private void OnDestroy() => _scoreController.OnScoreChangedInt -= UpdateScore;
+        private void ResetScore()
+        {
+            score.text = String.Empty;
+            highScore.text = String.Empty;
+        }
+
+        private void OnDestroy()
+        {
+            _gameManager.OnGameStartEvent -= StartGame;
+            _gameManager.OnGameOverEvent -= GameOver;
+            _scoreController.OnScoreChangedEvent -= UpdateScore;
+        }
     }
 }

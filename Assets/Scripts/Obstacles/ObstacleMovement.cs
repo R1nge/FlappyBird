@@ -1,21 +1,33 @@
 using Core;
+using Interfaces;
 using UnityEngine;
+using VContainer;
 
 namespace Obstacles
 {
-    public class ObstacleMovement : MonoBehaviour
+    public class ObstacleMovement : MonoBehaviour, IMovable
     {
-        [SerializeField] private bool canMove, hasGameStarted;
-        [SerializeField] private float speed;
-
-        private void Awake() => GameManager.Instance.OnGameStartEvent += delegate { hasGameStarted = true; };
+        [field:SerializeField] public float Speed { get; set; }
+        public Vector3 Direction { get; set; } = Vector3.left;
+        private GameManager _gameManager;
+        
+        [Inject]
+        private void Construct(GameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
 
         private void Update()
         {
-            if (!canMove || !hasGameStarted) return;
-            transform.Translate(Vector3.left * (Time.deltaTime * speed), Space.World);
+            if (!_gameManager.HasGameStarted()) return;
+            Move();
+        }
+
+        public void Move()
+        {
+            transform.Translate(Direction * (Time.deltaTime * Speed), Space.World);
             if (transform.position.x <= -6)
-                transform.position = new Vector3(6, Random.Range(-2.55f, 2.55f), 0);
+                transform.position = new(6, Random.Range(-2.55f, 2.55f), 0);
         }
     }
 }

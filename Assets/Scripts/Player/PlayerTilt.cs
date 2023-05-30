@@ -1,24 +1,33 @@
 using Core;
+using Interfaces;
 using UnityEngine;
+using VContainer;
 
 namespace Player
 {
-    public class PlayerTilt : MonoBehaviour
+    public class PlayerTilt : MonoBehaviour, IRotatable
     {
         private Rigidbody2D _rigidbody;
+        private GameManager _gameManager;
+        
+        [Inject]
+        private void Construct(GameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
 
         private void Awake()
         {
-            GameManager.Instance.OnGameStartEvent += OnGameStart;
-            enabled = false;
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        private void OnGameStart() => enabled = true;
+        private void FixedUpdate()
+        {
+            if(!_gameManager.HasGameStarted()) return;
+            Rotate();
+        }
 
-        private void FixedUpdate() => Tilt();
-
-        private void Tilt()
+        public void Rotate()
         {
             if (_rigidbody.velocity.y < 0)
             {

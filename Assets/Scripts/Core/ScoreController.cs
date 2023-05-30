@@ -3,23 +3,20 @@ using UnityEngine;
 
 namespace Core
 {
-    public class ScoreController : MonoBehaviour
+    public class ScoreController
     {
         private int _currentScore;
 
-        public event Action OnScoreChanged;
-        public event Action<int> OnScoreChangedInt;
-
-        private void Awake() => OnScoreChangedInt += SaveHighScore;
+        public event Action<int> OnScoreChangedEvent;
 
         public void IncreaseScore(int amount)
         {
             _currentScore += amount;
-            OnScoreChangedInt?.Invoke(_currentScore);
-            OnScoreChanged?.Invoke();
+            OnScoreChangedEvent?.Invoke(_currentScore);
+            TrySaveHighScore(_currentScore);
         }
 
-        private void SaveHighScore(int newScore)
+        private void TrySaveHighScore(int newScore)
         {
             var highScore = PlayerPrefs.GetInt("HighScore", 0);
             bool gotNewHighScore = newScore > highScore;
