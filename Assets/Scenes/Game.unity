@@ -305,7 +305,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1525911021}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 208229208}
   - component: {fileID: 208229207}
   m_Layer: 5
-  m_Name: CurrentScoreText
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,7 +440,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1525911021}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1843,8 +1843,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 207503834}
   - {fileID: 208229206}
+  - {fileID: 207503834}
   - {fileID: 967128982}
   - {fileID: 1575024180}
   - {fileID: 435089379}
@@ -2004,7 +2004,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1713874853}
-  - component: {fileID: 1713874857}
+  - component: {fileID: 1713874858}
   - component: {fileID: 1713874854}
   m_Layer: 0
   m_Name: Controllers
@@ -2042,7 +2042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreSound: {fileID: 2010715724}
   gameOverSound: {fileID: 2044480445}
---- !u!114 &1713874857
+--- !u!114 &1713874858
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2051,14 +2051,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1713874852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebe9b686ef84f8e4b8156acbf6ea8c97, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f59100711d54e138b0f37299970a9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 208229207}
-  highScore: {fileID: 207503835}
-  playButton: {fileID: 967128984}
-  retryButton: {fileID: 1575024181}
-  gameOverImage: {fileID: 435089380}
+  uiModel:
+    score: {fileID: 208229207}
+    highScore: {fileID: 207503835}
+    playButton: {fileID: 967128984}
+    retryButton: {fileID: 1575024181}
+    gameOverImage: {fileID: 435089380}
 --- !u!1 &1809492672
 GameObject:
   m_ObjectHideFlags: 0

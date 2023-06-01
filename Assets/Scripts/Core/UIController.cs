@@ -1,21 +1,17 @@
-using System;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using VContainer;
 
 namespace Core
 {
     public class UIController : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI score, highScore;
-        [SerializeField] private Button playButton, retryButton;
-        [SerializeField] private RawImage gameOverImage;
+        [SerializeField] private UIModel uiModel;
+        private UIView _uiView;
         private GameManager _gameManager;
         private ScoreController _scoreController;
-        
+
         [Inject]
-        private void Construct(GameManager gameManager,ScoreController scoreController)
+        private void Construct(GameManager gameManager, ScoreController scoreController)
         {
             _gameManager = gameManager;
             _scoreController = scoreController;
@@ -23,46 +19,30 @@ namespace Core
 
         private void Awake()
         {
-            playButton.onClick.AddListener(_gameManager.StartGame);
-            retryButton.onClick.AddListener(_gameManager.RestartGame);
-            _gameManager.OnGameStartEvent += StartGame;
-            _gameManager.OnGameOverEvent += GameOver;
-            _scoreController.OnScoreChangedEvent += UpdateScore;
-            ResetScore();
+            _uiView = new(uiModel.score, uiModel.highScore, uiModel.playButton, uiModel.retryButton, uiModel.gameOverImage);
+            _gameManager.OnGameStartEvent += OnGameStarted;
+            _gameManager.OnGameOverEvent += OnGameOver;
+            _scoreController.OnScoreChangedEvent += OnScoreChanged;
         }
 
-        private void StartGame()
+        private void Start()
         {
-            playButton.gameObject.SetActive(false);
-            retryButton.gameObject.SetActive(false);
-            highScore.gameObject.SetActive(false);
-            score.gameObject.SetActive(true);
+            _uiView.ResetScore();
+            _uiView.GetPlayButton().onClick.AddListener(_gameManager.StartGame);
+            _uiView.GetRetryButton().onClick.AddListener(_gameManager.RestartGame);
         }
 
-        private void GameOver()
-        {
-            highScore.gameObject.SetActive(true);
-            retryButton.gameObject.SetActive(true);
-            gameOverImage.gameObject.SetActive(true);
-        }
+        private void OnGameStarted() => _uiView.OnGameStarted();
 
-        private void UpdateScore(int currentScore)
-        {
-            score.text = currentScore.ToString();
-            highScore.text = $"HighScore: {PlayerPrefs.GetInt("HighScore")}";
-        }
+        private void OnScoreChanged(int newScore) => _uiView.UpdateScore(newScore);
 
-        private void ResetScore()
-        {
-            score.text = String.Empty;
-            highScore.text = String.Empty;
-        }
+        private void OnGameOver() => _uiView.OnGameOver();
 
         private void OnDestroy()
         {
-            _gameManager.OnGameStartEvent -= StartGame;
-            _gameManager.OnGameOverEvent -= GameOver;
-            _scoreController.OnScoreChangedEvent -= UpdateScore;
+            _gameManager.OnGameStartEvent -= OnGameStarted;
+            _gameManager.OnGameOverEvent -= OnGameOver;
+            _scoreController.OnScoreChangedEvent -= OnScoreChanged;
         }
     }
 }
